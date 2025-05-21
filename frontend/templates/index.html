@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SQL Optimizer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        background: #f9f9f9;
+      }
+      h1 {
+        color: #333;
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 1rem;
+        font-family: monospace;
+        font-size: 1rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+      }
+      pre {
+        background: #eee;
+        padding: 1rem;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      .output {
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SQL Query Optimizer</h1>
+
+    <form method="POST" action="/optimize">
+      <label for="sql_query">Enter SQL Query:</label><br />
+      <textarea
+        id="sql_query"
+        name="sql_query"
+        placeholder="SELECT * FROM users WHERE age > 30;"
+      ></textarea
+      ><br />
+      <button type="submit">Optimize Query</button>
+    </form>
+
+    {% if optimized_sql %}
+    <div class="output">
+      <h2>Optimized SQL Query:</h2>
+      <pre>{{ optimized_sql }}</pre>
+    </div>
+    {% endif %} {% if error %}
+    <div class="output" style="color: red">
+      <h2>Error:</h2>
+      <pre>{{ error }}</pre>
+    </div>
+    {% endif %}
+  </body>
+</html>

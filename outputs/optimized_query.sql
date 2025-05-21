@@ -1,0 +1,1 @@
+SELECT order_id, user_id FROM orders WHERE (amount >= 50 AND amount <= 500);

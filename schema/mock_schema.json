@@ -1,0 +1,27 @@
+{
+  "users": {
+    "columns": {
+      "id": "int",
+      "name": "string",
+      "age": "int",
+      "status": "string",
+      "email": "string"
+    }
+  },
+  "orders": {
+    "columns": {
+      "order_id": "int",
+      "user_id": "int",
+      "amount": "float",
+      "status": "string"
+    }
+  },
+  "employees": {
+    "columns": {
+      "id": "INT",
+      "name": "VARCHAR",
+      "department": "VARCHAR",
+      "salary": "FLOAT"
+    }
+  }
+}
