@@ -2,7 +2,7 @@ import sys
 import os
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit,
-    QPushButton, QGroupBox, QSizePolicy
+    QPushButton, QGroupBox
 )
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QTextCursor, QPixmap, QBrush
@@ -22,7 +22,7 @@ class SQLQueryOptimizerGUI(QWidget):
         self.resize(1080, 720)
         self.setMinimumSize(920, 600)
         self.setAutoFillBackground(True)
-        self.set_background_image("assets/pxfuel.jpg")
+        self.set_background_image("assets/background.jpg")
         self.init_ui()
 
     def set_background_image(self, image_path):
@@ -35,45 +35,33 @@ class SQLQueryOptimizerGUI(QWidget):
             print("❌ Background image not found:", image_path)
 
     def resizeEvent(self, event):
-        self.set_background_image("assets/pxfuel.jpg")
+        self.set_background_image("assets/background.jpg")
         super().resizeEvent(event)
 
     def init_ui(self):
-        # Fonts
-        input_font = QFont("Consolas", 18)
-        input_font.setBold(True)
+        font = QFont("Consolas", 12)
+        font.setBold(True)
 
-        output_font = QFont("Consolas", 18)
-        output_font.setBold(True)
-
-        log_font = QFont("Consolas", 16)
-        log_font.setBold(True)
-
-        # Title and Subtitle
+        # Header Title
         title = QLabel("SQL Query Optimizer")
-        title.setAlignment(Qt.AlignCenter)
-        title.setStyleSheet("color: #ffffff; font-size: 42px; font-weight: bold;")
-
+        title.setStyleSheet("color: #ffffff; font-size: 32px; font-weight: bold;")
         subtitle = QLabel("Analyze, optimize, and visualize your SQL queries")
-        subtitle.setAlignment(Qt.AlignCenter)
-        subtitle.setStyleSheet("color: #cbd5e1; font-size: 20px; margin-bottom: 12px;")
+        subtitle.setStyleSheet("color: #cbd5e1; font-size: 16px; margin-bottom: 12px;")
 
         # Input Query
         self.input_query = QTextEdit()
-        self.input_query.setFont(input_font)
+        self.input_query.setFont(font)
         self.input_query.setStyleSheet("""
             background-color: rgba(30, 41, 59, 0.95);
             color: #ffffff;
             border-radius: 6px;
             padding: 12px;
         """)
-        self.input_query.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.input_query.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         input_box = self.create_box("➕ Input Query", self.input_query)
 
         # Output Query
         self.output_query = QTextEdit()
-        self.output_query.setFont(output_font)
+        self.output_query.setFont(font)
         self.output_query.setReadOnly(True)
         self.output_query.setStyleSheet("""
             background-color: rgba(30, 41, 59, 0.95);
@@ -81,8 +69,6 @@ class SQLQueryOptimizerGUI(QWidget):
             border-radius: 6px;
             padding: 12px;
         """)
-        self.output_query.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.output_query.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         output_box = self.create_box("✅ Optimized Query", self.output_query)
 
         queries_layout = QHBoxLayout()
@@ -92,7 +78,7 @@ class SQLQueryOptimizerGUI(QWidget):
 
         # Execution Log
         self.execution_log = QTextEdit()
-        self.execution_log.setFont(log_font)
+        self.execution_log.setFont(font)
         self.execution_log.setReadOnly(True)
         self.execution_log.setStyleSheet("""
             background-color: rgba(15, 23, 42, 0.95);
@@ -100,8 +86,6 @@ class SQLQueryOptimizerGUI(QWidget):
             border-radius: 6px;
             padding: 12px;
         """)
-        self.execution_log.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.execution_log.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         execution_box = self.create_box("🖥️ Execution Simulation", self.execution_log)
 
         # Optimize Button
@@ -112,14 +96,14 @@ class SQLQueryOptimizerGUI(QWidget):
                 color: white;
                 padding: 12px 24px;
                 font-weight: bold;
-                font-size: 16px;
+                font-size: 15px;
                 border-radius: 6px;
             }
             QPushButton:hover {
                 background-color: #4338ca;
             }
         """)
-        self.run_button.setFont(QFont("Segoe UI", 12, QFont.Bold))
+        self.run_button.setFont(QFont("Segoe UI", 11, QFont.Bold))
         self.run_button.clicked.connect(self.run_optimizer)
 
         # Main Layout
@@ -138,7 +122,6 @@ class SQLQueryOptimizerGUI(QWidget):
         group_box = QGroupBox(title)
         group_box.setStyleSheet("""
             QGroupBox {
-                font-size: 18px;
                 font-weight: bold;
                 color: #e2e8f0;
                 border: 1px solid #334155;
@@ -148,12 +131,10 @@ class SQLQueryOptimizerGUI(QWidget):
             QGroupBox::title {
                 subcontrol-origin: margin;
                 subcontrol-position: top left;
-                padding: 4px 10px;
+                padding: 0 10px;
             }
         """)
         layout = QVBoxLayout()
-        layout.setContentsMargins(12, 20, 12, 12)
-        layout.setSpacing(10)
         layout.addWidget(widget)
         group_box.setLayout(layout)
         return group_box
